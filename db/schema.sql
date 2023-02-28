@@ -32,3 +32,6 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
 `body` = '내용3';
+
+# 게시물 조회
+SELECT * FROM article WHERE id = id;
