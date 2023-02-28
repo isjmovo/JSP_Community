@@ -17,7 +17,9 @@
         <%
         for (Map<String, Object> articleRow : articleRows) {
         %>
-        <li><%= articleRow.get("id") %>번, <%= (String) articleRow.get("regDate") %>, <%= (String) articleRow.get("updateDate") %>, <%= (String) articleRow.get("title") %></li>
+        <li>
+            <a href="detail?id=<%= (int) articleRow.get("id") %>"><%= (int) articleRow.get("id") %>번, <%= (String) articleRow.get("regDate") %>, <%= (String) articleRow.get("updateDate") %>, <%= (String) articleRow.get("title") %></a>
+        </li>
         <%
         }
         %>
