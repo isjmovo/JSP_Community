@@ -1,6 +1,7 @@
 package com.isjmovo.exam.servlet;
 
 import com.isjmovo.exam.util.DBUtil;
+import com.isjmovo.exam.util.SecSql;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -37,7 +38,10 @@ public class ArticleListServlet extends HttpServlet {
     try {
       conn = DriverManager.getConnection(url, user, password);
 
-      String sql = "SELECT * FROM article";
+      SecSql sql = SecSql.from("SELECT *");
+      sql.append("FROM article");
+      sql.append("ORDER BY id DESC");
+
       List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
 
       req.setAttribute("articleRows", articleRows);
