@@ -35,3 +35,6 @@ title = '제목3',
 
 # 게시물 조회
 SELECT * FROM article WHERE id = id;
+
+# 게시물 삭제
+DELETE FROM article WHERE id = id;
