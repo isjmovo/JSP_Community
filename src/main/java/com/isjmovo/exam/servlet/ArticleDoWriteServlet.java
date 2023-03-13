@@ -43,10 +43,10 @@ public class ArticleDoWriteServlet extends HttpServlet {
       String body = rq.getParam("body", "");
 
       SecSql sql = SecSql.from("INSERT article");
-      sql.append("SET retDate = NOW(),");
+      sql.append("SET regDate = NOW(),");
       sql.append("updateDate = NOW(),");
       sql.append("title = ?,", title);
-      sql.append("body = ?,", body);
+      sql.append("body = ?", body);
 
       int id = DBUtil.insert(conn, sql);
 
@@ -63,5 +63,10 @@ public class ArticleDoWriteServlet extends HttpServlet {
       }
     }
     // DB 연결 끝
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    doGet(req, resp);
   }
 }
