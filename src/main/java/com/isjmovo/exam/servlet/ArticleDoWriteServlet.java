@@ -1,5 +1,6 @@
 package com.isjmovo.exam.servlet;
 
+import com.isjmovo.exam.Rq;
 import com.isjmovo.exam.util.DBUtil;
 import com.isjmovo.exam.util.SecSql;
 import jakarta.servlet.ServletException;
@@ -17,9 +18,7 @@ import java.sql.SQLException;
 public class ArticleDoWriteServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    req.setCharacterEncoding("UTF-8");
-    resp.setCharacterEncoding("UTF-8");
-    resp.setContentType("text/html; charset-utf-8");
+    Rq rq = new Rq(req, resp);
 
     // DB 연결 시작
     Connection conn = null;
@@ -40,8 +39,8 @@ public class ArticleDoWriteServlet extends HttpServlet {
     try {
       conn = DriverManager.getConnection(url, user, password);
 
-      String title = req.getParameter("title");
-      String body = req.getParameter("body");
+      String title = rq.getParam("title", "");
+      String body = rq.getParam("body", "");
 
       SecSql sql = SecSql.from("INSERT article");
       sql.append("SET retDate = NOW(),");
@@ -51,7 +50,7 @@ public class ArticleDoWriteServlet extends HttpServlet {
 
       int id = DBUtil.insert(conn, sql);
 
-      resp.getWriter().append(String.format("<script> alert('%d번 글이 생성되었습니다.'); location.replace('list'); </script>", id));
+      rq.appendBody(String.format("<script> alert('%d번 글이 생성되었습니다.'); location.replace('list'); </script>", id));
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {

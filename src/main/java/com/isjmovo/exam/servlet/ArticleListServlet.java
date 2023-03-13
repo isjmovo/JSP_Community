@@ -1,5 +1,6 @@
 package com.isjmovo.exam.servlet;
 
+import com.isjmovo.exam.Rq;
 import com.isjmovo.exam.util.DBUtil;
 import com.isjmovo.exam.util.SecSql;
 import jakarta.servlet.ServletException;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class ArticleListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    Rq rq = new Rq(req, resp);
+
     // DB 연결 시작
     Connection conn = null;
 
@@ -41,7 +44,7 @@ public class ArticleListServlet extends HttpServlet {
       int page = 1;
 
       if (req.getParameter("page") != null && req.getParameter("page").length() != 0) {
-        page = Integer.parseInt(req.getParameter("page"));
+        page = rq.getIntParam("page", 0);
       }
 
       int itemInAPage = 10;
@@ -57,8 +60,6 @@ public class ArticleListServlet extends HttpServlet {
       sql.append("FROM article");
       sql.append("ORDER BY id DESC");
       sql.append("LIMIT ?, ?", limitFrom, itemInAPage);
-
-      System.out.println(sql);
 
       List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
 
