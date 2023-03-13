@@ -12,10 +12,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Map;
 
 @WebServlet("/article/doDelete")
-public class ArticleDeleteServlet extends HttpServlet {
+public class ArticleDoDeleteServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     req.setCharacterEncoding("UTF-8");
@@ -49,7 +48,6 @@ public class ArticleDeleteServlet extends HttpServlet {
 
       DBUtil.delete(conn, sql);
       resp.getWriter().append(String.format("<script> alert('%d번 글이 삭제되었습니다.'); location.replace('list'); </script>", id));
-
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
