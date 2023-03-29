@@ -47,3 +47,10 @@ DELETE FROM article WHERE id = id;
 # 게시물 수 조회
 SELECT COUNT(*) AS cnt
 FROM article;
+
+# 게시물 수정
+UPDATE article
+SET updateDate = NOW(),
+title = '제목',
+`body` = '내용'
+WHERE id = id;

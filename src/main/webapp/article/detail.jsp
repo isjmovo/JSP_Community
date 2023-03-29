@@ -40,7 +40,11 @@
                 <td><%= articleRow.get("body") %></td>
                 <td>
                     <a href="doDelete?id=<%= articleRow.get("id") %>">
-                        삭제하기
+                        삭제
+                    </a>
+                    &nbsp;
+                    <a href="modify?id=<%= articleRow.get("id") %>">
+                        수정
                     </a>
                 </td>
             </tr>
@@ -48,7 +52,7 @@
     </table>
     
     <div>
-        <a href="list">리스트로 돌아가기</a>
+        <a href="list">리스트</a>
     </div>
 </body>
 </html>
