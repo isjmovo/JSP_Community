@@ -1,5 +1,6 @@
 package com.isjmovo.exam.servlet;
 
+import com.isjmovo.exam.Config;
 import com.isjmovo.exam.Rq;
 import com.isjmovo.exam.util.DBUtil;
 import com.isjmovo.exam.util.SecSql;
@@ -23,8 +24,10 @@ public class ArticleDoWriteServlet extends HttpServlet {
     // DB 연결 시작
     Connection conn = null;
 
+    String driverName = Config.getDriverClassName();
+
     try {
-      Class.forName("com.mysql.jdbc.Driver");
+      Class.forName(driverName);
     } catch (ClassNotFoundException e) {
       System.out.printf("[ClassNotFoundException 예외, %s]", e.getMessage());
       System.out.println("DB 드라이버 클래스 로딩 실패");
@@ -32,12 +35,8 @@ public class ArticleDoWriteServlet extends HttpServlet {
       return;
     }
 
-    String url = "jdbc:mysql://127.0.0.1:3306/JSP_Community?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
-    String user = "isjmovo";
-    String password = "Kim123";
-
     try {
-      conn = DriverManager.getConnection(url, user, password);
+      conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBId(), Config.getDBPw());
 
       String title = rq.getParam("title", "");
       String body = rq.getParam("body", "");
