@@ -54,3 +54,13 @@ SET updateDate = NOW(),
 title = '제목',
 `body` = '내용'
 WHERE id = id;
+
+# 멤버 테이블 생성
+CREATE TABLE `member` (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	loginId CHAR(100) NOT NULL UNIQUE,
+	loginPw CHAR(100) NOT NULL,
+	`name` CHAR(100) NOT NULL
+);
